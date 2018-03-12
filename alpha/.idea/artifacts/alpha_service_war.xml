@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="alpha-service:war">
+    <output-path>$PROJECT_DIR$/alpha-service/target</output-path>
+    <root id="archive" name="alpha-service-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="alpha-service:war exploded" />
+    </root>
+  </artifact>
+</component>
