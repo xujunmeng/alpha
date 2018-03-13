@@ -5,7 +5,7 @@
     <parent>
         <artifactId>alpha-parent</artifactId>
         <groupId>com.junmeng.alpha</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${alpha.version}</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -15,6 +15,13 @@
     <name>alpha-service</name>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.junmeng.alpha.model</groupId>
+            <artifactId>alpha-model</artifactId>
+            <version>${alpha.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.aihuishou.service.common</groupId>
             <artifactId>service-extension</artifactId>
@@ -29,6 +36,38 @@
                     <artifactId>jackson-annotations</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aihuishou.recycle.security</groupId>
+            <artifactId>looeasy-recycle-security</artifactId>
+            <version>${looeasy.recycle.security.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.microsoft.sqlserver</groupId>
+                    <artifactId>sqlserver-java-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.aihuishou.recycle.foundation.client</groupId>
+                    <artifactId>foundation-client</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>jconsole</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>tools</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>${druid-version}</version>
         </dependency>
     </dependencies>
 

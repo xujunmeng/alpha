@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- http://blog.csdn.net/zavens/article/details/7983434 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{256}  - %msg%n
+            </Pattern>
+        </encoder>
+    </appender>
+
+
+    <!-- 请求响应日志 -->
+    <appender name="requestinfo"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/data/log/alpha/request/info.log</file>
+        <Encoding>UTF-8</Encoding>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--在工程目录下自动生成log文件夹 -->
+            <FileNamePattern>/data/log/alpha/request/info.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>10</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{256} - %msg%n</pattern>
+        </layout>
+    </appender>
+    <appender name ="asyncRequestInfo" class= "ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold >0</discardingThreshold>
+        <queueSize>1024</queueSize>
+        <appender-ref ref ="requestinfo"/>
+    </appender>
+
+    <!-- Debug日志 -->
+    <appender name="filedebug"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Encoding>UTF-8</Encoding>
+        <file>/data/log/alpha/debug/debug.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/data/log/alpha/debug/debug.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>180</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{256} -%msg%n</pattern>
+        </layout>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- Info日志 -->
+    <appender name="fileinfo"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/data/log/alpha/info/info.log</file>
+        <Encoding>UTF-8</Encoding>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/data/log/alpha/info/info.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>2</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{256} - %msg%n</pattern>
+        </layout>
+        <!-- <param name="LocationInfo" value="true" /> -->
+        <!-- 过滤器，只记录INFO级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- Error日志 -->
+    <appender name="fileerror"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Encoding>UTF-8</Encoding>
+        <file>/data/log/alpha/error/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/data/log/alpha/error/error.%d{yyyy-MM-dd}.log
+            </FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{256} - %msg%n</pattern>
+        </layout>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- Sql日志-->
+    <appender name="sqlProfile"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Encoding>UTF-8</Encoding>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/data/log/alpha/sql/sql.%d{yyyy-MM-dd}.log
+            </FileNamePattern>
+            <MaxHistory>20</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{host}] [%thread] %-5level %logger{256} - %msg%n</pattern>
+        </layout>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <appender name ="asyncSqlProfile" class= "ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold >0</discardingThreshold>
+        <queueSize>1024</queueSize>
+        <appender-ref ref ="sqlProfile"/>
+    </appender>
+
+    <!-- oss日志 -->
+    <appender name="ossAppender"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/data/log/oss/oss.log</file>
+        <Encoding>UTF-8</Encoding>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/data/log/oss/oss.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>20</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{256} - %msg%n</pattern>
+        </layout>
+    </appender>
+    <appender name ="asyncOssAppender" class= "ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold >0</discardingThreshold>
+        <queueSize>1024</queueSize>
+        <appender-ref ref ="ossAppender"/>
+    </appender>
+
+
+    <logger name="com.aihuishou.recycle.service.extension.jersey.AhsLoggingFilter" level="info" additivity="false">
+        <appender-ref ref="asyncRequestInfo"/>
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <logger name="com.aihuishou.recycle.service.extension.mybatis.SqlExecutionStatisticsInterceptor" level="info" additivity="false">
+        <appender-ref ref="sqlProfile" />
+    </logger>
+
+    <root>
+        <level value="info"/>
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="filedebug"/>
+        <appender-ref ref="fileinfo"/>
+        <appender-ref ref="fileerror"/>
+    </root>
+</configuration>

@@ -6,18 +6,31 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.junmeng.alpha</groupId>
     <artifactId>alpha-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>alpha-model</module>
-        <module>alpha-service</module>
-        <module>alpha-client</module>
-    </modules>
+    <version>${alpha.version}</version>
     <packaging>pom</packaging>
     <name>alpha</name>
 
     <properties>
+        <alpha.version>1.0-SNAPSHOT</alpha.version>
         <service.extension.version>2.1.4</service.extension.version>
+        <druid-version>1.0.17</druid-version>
+        <looeasy.recycle.security.version>1.0.0</looeasy.recycle.security.version>
+        <lombok.version>1.16.6</lombok.version>
     </properties>
+
+    <modules>
+        <module>alpha-model</module>
+        <module>alpha-client</module>
+        <module>alpha-service</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

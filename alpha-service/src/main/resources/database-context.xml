@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                              http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	                          http://www.springframework.org/schema/aop
+		                      http://www.springframework.org/schema/aop/spring-aop-4.0.xsd"
+       default-lazy-init="default">
+
+    <!-- master data source -->
+    <bean id="operationDataSource" class="com.alibaba.druid.pool.DruidDataSource">
+
+        <property name="driverClassName" value="${alpha.jdbc.driver}" />
+        <property name="url"             value="${alpha.jdbc.url}" />
+        <property name="username"        value="${alpha.jdbc.username}"/>
+        <property name="password"        value="${alpha.jdbc.password}"/>
+        <property name="filters"                       value="stat" />
+        <property name="initialSize"                   value="16"/>
+        <property name="minIdle"                       value="4"/>
+        <property name="maxActive"                     value="48"/>
+        <property name="maxWait"                       value="30000"/>
+        <property name="testOnBorrow"                  value="false" />
+        <property name="testWhileIdle"                 value="true" />
+        <property name="validationQuery"               value="select 1" />
+        <property name="timeBetweenEvictionRunsMillis" value="30000" />
+        <property name="numTestsPerEvictionRun"        value="48" />
+    </bean>
+
+</beans>

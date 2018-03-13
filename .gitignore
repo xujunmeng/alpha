@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/workspace.xml
+alpha-client/src/
+alpha-model/src/
+alpha-service/src/main/java/
+alpha-service/src/test/
