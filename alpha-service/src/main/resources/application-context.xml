@@ -17,11 +17,18 @@
          http://www.springframework.org/schema/task
          http://www.springframework.org/schema/task/spring-task-4.0.xsd" default-lazy-init="default">
 
-    <context:component-scan base-package="com.junmeng" />
-
-
     <context:component-scan base-package="com.junmeng.service.alpha" />
 
+    <!-- 开启@AspectJ AOP代理 -->
+    <aop:aspectj-autoproxy />
 
+    <!--开启注解调度支持 @Async-->
+    <task:annotation-driven  proxy-target-class="true"/>
+
+    <context:property-placeholder location="classpath:*.properties" system-properties-mode="OVERRIDE" />
+
+    <import resource="/database-context.xml" />
+
+    <import resource="/redis-context.xml" />
 
 </beans>

@@ -10,8 +10,7 @@
        default-lazy-init="default">
 
     <!-- master data source -->
-    <bean id="operationDataSource" class="com.alibaba.druid.pool.DruidDataSource">
-
+    <bean id="alphaDataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="${alpha.jdbc.driver}" />
         <property name="url"             value="${alpha.jdbc.url}" />
         <property name="username"        value="${alpha.jdbc.username}"/>
@@ -26,6 +25,24 @@
         <property name="validationQuery"               value="select 1" />
         <property name="timeBetweenEvictionRunsMillis" value="30000" />
         <property name="numTestsPerEvictionRun"        value="48" />
+    </bean>
+
+    <aop:config expose-proxy="true">
+        <aop:pointcut id="txPointcut"             expression="execution(* com.junmeng.service.alpha.persistence..*.*(..))" />
+    </aop:config>
+
+    <!-- mybatis -->
+    <bean id="operationSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="alphaDataSource"/>
+        <property name="mapperLocations" value = "classpath*:com/junmeng/**/alpha/map/*Mapper.xml"/>
+        <property name="plugins">
+            <array>
+                <bean class="com.aihuishou.recycle.service.extension.mybatis.MySqlPaginationInterceptor"/>
+                <bean class="com.aihuishou.recycle.service.extension.mybatis.SqlExecutionStatisticsInterceptor">
+                    <property name="executionTimeThreshold" value="300"/>
+                </bean>
+            </array>
+        </property>
     </bean>
 
 </beans>

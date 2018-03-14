@@ -40,4 +40,10 @@
 
     <bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
 
+    <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
+        <property name="usePrefix" value="true"/>
+        <constructor-arg ref="redisTemplate"/>
+        <property name="defaultExpiration" value="${redis.expiration}"/>
+    </bean>
+
 </beans>

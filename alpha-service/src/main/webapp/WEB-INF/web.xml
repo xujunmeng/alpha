@@ -6,14 +6,6 @@
            version="3.0">
 
     <listener>
-        <listener-class>org.springframework.web.util.WebAppRootListener</listener-class>
-    </listener>
-    <context-param>
-        <param-name>webAppRootKey</param-name>
-        <param-value>alphaservice</param-value>
-    </context-param>
-
-    <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     <context-param>
@@ -21,31 +13,20 @@
         <param-value>classpath:application-context.xml</param-value>
     </context-param>
 
+    <!-- REST Services begin-->
     <servlet>
-        <servlet-name>Jersey Web Application</servlet-name>
-        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <servlet-name>Rest_Servlet</servlet-name>
+        <servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
         <init-param>
-            <param-name>javax.ws.rs.Application</param-name>
-            <param-value>com.aihuishou.recycle.service.extension.jersey.JerseyApplicationExtension</param-value>
-        </init-param>
-        <init-param>
-            <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>com.junmeng.service.alpha</param-value>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>com.zack.rest</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Jersey Web Application</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <servlet-name>Rest_Servlet</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
-
-    <servlet>
-        <servlet-name>DruidStatView</servlet-name>
-        <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DruidStatView</servlet-name>
-        <url-pattern>/druid/*</url-pattern>
-    </servlet-mapping>
+    <!-- REST Services end-->
 
 </web-app>
